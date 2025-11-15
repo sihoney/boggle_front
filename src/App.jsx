@@ -3,46 +3,23 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import GlobalLayout from "@/layouts/GlobalLayout";
 import MainPage from "@/pages/MainPage";
-import MyReviewPage from "@/pages/review/MyReviewPage";
+import Login from "@/pages/user/Login";
+import Register from "@/pages/user/Register";
+import MyPage from "@/pages/user/MyPage";
+
+import PrivateRoute from "@/components/PrivateRoute";
 
 export const router = createBrowserRouter([
-  { path: "/boggle", element: <MainPage /> },
+  { path: "/", element: <MainPage /> },
+  { path: "/auth/login", element: <Login /> },
+  { path: "/auth/register", element: <Register /> },
   {
-    path: "/",
-    element: <GlobalLayout />,
-    children: [
-      // ✅ 메인 페이지
-      { path: "my/reviews/:nickname", element: <MyReviewPage /> },
-
-      // // ✅ 사용자(User)
-      // { path: "login", element: <LoginPage /> },
-      // { path: "register", element: <RegisterPage /> },
-      // { path: "profile/edit", element: <ProfileEditPage /> },
-
-      // // ✅ 리뷰(Review)
-      // { path: "my/reviews/:nickname", element: <MyReviewsPage /> },
-      // { path: "reviews/new", element: <ReviewWritePage /> },
-      // { path: "reviews/edit/:reviewId", element: <ReviewWritePage /> },
-      // { path: "reviews/:reviewId", element: <ReviewDetailPage /> },
-
-      // // ✅ 도서(Book)
-      // { path: "books/:isbn", element: <BookDetailPage /> },
-      // { path: "taste", element: <TastePage /> },
-
-      // // ✅ 플레이리스트(Playlist)
-      // { path: "my/playlists/:nickname", element: <PlaylistPage /> },
-      // { path: "playlists/:playlistId", element: <PlaylistDetailPage /> },
-
-      // // ✅ 감정 분석
-      // { path: "analyze/:nickname", element: <AnalyzePage /> },
-
-      // // ✅ 결과 페이지
-      // { path: "success", element: <SuccessPage /> },
-      // { path: "failure", element: <FailurePage /> },
-
-      // // ✅ Not Found
-      // { path: "*", element: <FailurePage /> },
-    ],
+    path: "/users/me",
+    element: (
+      <PrivateRoute>
+        <MyPage />
+      </PrivateRoute>
+    ),
   },
 ]);
 
