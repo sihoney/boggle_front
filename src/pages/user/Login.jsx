@@ -1,28 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginApi } from "@/api/auth";
+import { useAuth } from "@/context/AuthContext";
 
 function Login() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const res = await loginApi(email, password);
-
-      // 서버 응답: { token: "..." }
-      localStorage.setItem("token", res.token);
-
-      alert("로그인 성공!");
-
-      nav("/users/me");
+      await login(email, password);
+      alert("로그인 성공");
+      // 원하는 페이지로 이동
+      navigate("/users/me");
     } catch (err) {
-      alert("로그인 실패");
       console.error(err);
+      alert("로그인 실패");
     }
+    // e.preventDefault();
+    // try {
+    //   const res = await loginApi(email, password);
+
+    //   // 서버 응답: { token: "..." }
+    //   localStorage.setItem("token", res.token);
+
+    //   alert("로그인 성공!");
+
+    //   nav("/users/me");
+    // } catch (err) {
+    //   alert("로그인 실패");
+    //   console.error(err);
+    // }
   }
 
   return (

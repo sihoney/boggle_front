@@ -6,7 +6,7 @@ const kyClient = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken");
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
         }
