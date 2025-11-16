@@ -13,5 +13,5 @@ export async function refreshTokenApi(refreshToken) {
 }
 
 export async function getMyInfo() {
-  return kyClient.get("users/me").json();
+  return kyClient.get("api/users/me").json();
 }

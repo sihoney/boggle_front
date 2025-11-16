@@ -20,20 +20,6 @@ function Login() {
       console.error(err);
       alert("로그인 실패");
     }
-    // e.preventDefault();
-    // try {
-    //   const res = await loginApi(email, password);
-
-    //   // 서버 응답: { token: "..." }
-    //   localStorage.setItem("token", res.token);
-
-    //   alert("로그인 성공!");
-
-    //   nav("/users/me");
-    // } catch (err) {
-    //   alert("로그인 실패");
-    //   console.error(err);
-    // }
   }
 
   return (

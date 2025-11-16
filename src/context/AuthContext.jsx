@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   //     localStorage.getItem("refreshToken")
   //   );
   const [user, setUser] = useState(null);
-  //   const [loading, setLoading] = useState(true); // 초기 상태 로딩
+  const [loading, setLoading] = useState(true); // 초기 상태 로딩
 
   //   const isAuthenticated = !!accessToken;
 
@@ -32,16 +32,14 @@ export function AuthProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //   '초기 인증 복구' 기능
   async function initAuth() {
-    const refreshToken = localStorage.getItem("refresh_token");
-    if (!refreshToken) return;
-
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) {
+      setLoading(false); // 로딩 끝 -> 비로그인 상태
+      return;
+    }
     try {
-      //   if (!refreshToken) {
-      //     setLoading(false);
-      //     return;
-      //   }
-
       const res = await refreshTokenApi(refreshToken);
 
       localStorage.setItem("accessToken", res.accessToken);
@@ -55,14 +53,14 @@ export function AuthProvider({ children }) {
 
       const me = await getMyInfo();
       setUser(me);
+      console.log("초기 인증 복구 성공");
     } catch (e) {
       console.error("초기 인증 복구 실패", e);
       //   saveTokens(null, null);
       setUser(null);
+    } finally {
+      setLoading(false);
     }
-    // finally {
-    //   setLoading(false);
-    // }
   }
 
   // 로그인 함수 (Login 페이지에서 사용)
@@ -91,7 +89,7 @@ export function AuthProvider({ children }) {
     // accessToken,
     // refreshToken,
     // isAuthenticated,
-    // loading,
+    loading,
     login,
     logout,
   };
