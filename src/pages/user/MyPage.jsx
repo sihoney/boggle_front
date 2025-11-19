@@ -5,8 +5,13 @@ function MyPage() {
   const { user: me } = useAuth();
 
   const handleMe = async () => {
-    const res = await getMyInfo();
-    console.log(res);
+    try {
+      const res = await getMyInfo();
+      console.log("User info: ", res);
+    } catch(error) {
+      console.log("Failed to fetch user info: ", error);
+    }
+
   };
 
   if (!me) return <div>Loading...</div>;
