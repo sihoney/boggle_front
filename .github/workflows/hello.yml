@@ -1,8 +1,14 @@
-name: hello # 워크플로명
-on: push # 이벤트 (푸시할 때 실행)
-jobs: # 잡 정의
-  hello: # 잡 ID
-    runs-on: ubuntu-latest # 러너 (우분투에서 실행)
-    steps: # 스텝 정의
-      - run: echo "Hello, world" # 셸 명령 실행
-      - uses: actions/checkout@v4 # 액션 호출
+name: Manual
+on:
+  workflow-dispatch: #수동 실행 이벤트
+    inputs:
+      greeting: #입력 파라미터명
+        type: string #데이터형(문자열)
+        default: Hello #입력 파라미터의 기본값
+        required: true
+        description: A cheerful word #입력 파라미터의 개요
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ inputs.greeting }}" #입력 파라미터의 greeting 값 출력
