@@ -1,6 +1,6 @@
 name: Manual
 on:
-  workflow-dispatch: #수동 실행 이벤트
+  workflow_dispatch: #수동 실행 이벤트
     inputs:
       greeting: #입력 파라미터명
         type: string #데이터형(문자열)
